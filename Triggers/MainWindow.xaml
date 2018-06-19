@@ -1,0 +1,136 @@
+﻿<Window x:Class="Triggers.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Triggers"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+
+    <Window.Resources>
+        <Style x:Key="BigFontButton">
+            <Style.Setters>
+                <Setter Property="Control.FontFamily" Value="Times New Roman"/>
+                <Setter Property="Control.FontSize" Value="12"/>
+                <Setter Property="Control.BorderThickness" Value="0,0,0,0"/>
+                <Setter Property="Control.Foreground" Value="LightGray"/>
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="Control.IsFocused" Value="True">
+                    <Setter Property="Control.Foreground" Value="Black"/>
+                    <Setter Property="Control.FontSize" Value="14"/>
+                    <Setter Property="Control.BorderThickness" Value="0,0,0,1"/>
+                    <Setter Property="Control.BorderBrush" Value="SlateBlue"/>
+                </Trigger>
+                <Trigger Property="Button.IsPressed" Value="True">
+                    <Setter Property="Control.BorderThickness" Value = "0,0,0,2"/>
+                    <Setter Property="Control.Foreground" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="BigFontButton1">
+            <Style.Setters>
+                <Setter Property="Control.FontFamily" Value="Times New Roman"/>
+                <Setter Property="Control.FontSize" Value="12"/>
+                <Setter Property="Control.BorderThickness" Value="0,0,0,0"/>
+                <Setter Property="Control.Foreground" Value="LightGray"/>
+            </Style.Setters>
+
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="Control.IsFocused" Value="True"/>
+                        <Condition Property="Control.IsMouseOver" Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="Control.BorderThickness" Value="0,0,0,1"/>
+                        <Setter Property="Control.BorderBrush" Value="Black"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Style.Triggers>
+
+
+        </Style>
+
+        <Style x:Key="BigFontButton2">
+            <Style.Setters>
+                <Setter Property="Control.FontFamily" Value="Times New Roman"/>
+                <Setter Property="Control.FontSize" Value="12"/>
+                <Setter Property="Control.BorderThickness" Value="0,0,0,0"/>
+                <Setter Property="Control.Foreground" Value="LightGray"/>
+            </Style.Setters>
+
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="Button.IsFocused" Value="False"/>
+                        <Condition Property="Button.IsMouseOver" Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="Button.BorderThickness" Value="0,0,0,2"/>
+                        <Setter Property="Button.BorderBrush" Value="Black"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="BigFontButton3">
+            <Style.Setters>
+                <Setter Property="Control.FontSize" Value="10"/>
+            </Style.Setters>
+
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:0:0.2" Storyboard.TargetProperty="FontSize" To="22"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:0:1" Storyboard.TargetProperty="FontSize"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="BigDataTrigger">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=checkBox1, Path=IsChecked}" Value="true">
+                    <Setter Property="CheckBox.IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+
+
+    <Grid>
+        <TabControl>
+            <TabItem Header="Trigger">
+                <StackPanel>
+                    <TextBox Width="150" Height="20" Text="Введите имя" Style="{StaticResource BigFontButton}"/>
+                    <Button Content="OK" Margin="0,30,0,0" Width="50" Height="20" Style="{StaticResource BigFontButton}"/>
+
+                    <Label Content="Multitrigger"/>
+                    <TextBox Width="150" Height="20" Text="Введите имя" Style="{StaticResource BigFontButton1}"/>
+                    <Button Width="50" Height="20" Content="OK" Margin="0 30 0 0" Style="{StaticResource BigFontButton2}"/>
+
+                    <Button  Content="OK"  Style="{StaticResource BigFontButton3}"/>
+
+                    <CheckBox x:Name="checkBox1"/>
+                    <Button Content="Check" Style="{StaticResource BigDataTrigger}"/>
+                    
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
